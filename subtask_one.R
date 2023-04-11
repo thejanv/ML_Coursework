@@ -1,16 +1,14 @@
 #Removed all the existing objects
 rm(list = ls())
 
-# install and load readxl package
+# load package
 # install.packages('readxl')
 library(readxl)
 library(factoextra)
-
-#Setting the working directory
-getwd()
+library(NbClust)
 
 #Load the dataset
-df <- read_excel("./Data/vehicles.xlsx")
+df <- read_excel("Data/vehicles.xlsx")
 df<- df[,-20]
 
 boxplot(df)
@@ -46,7 +44,6 @@ head(normalized_df)
 
 # determine the number of cluster
 # install.packages("NbClust")
-library(NbClust)
 
 set.seed(10)
 
@@ -56,18 +53,15 @@ clusterNo = NbClust(normalized_df, distance="euclidean", min.nc=2,
 
 table(clusterNo$Best.n[1,])
 barplot(table(clusterNo$Best.n[1,]), xlab="Numer of Clusters",ylab="Number of Criteria",
-        main="Number of Clusters Chosen by 30 Criteria")
+        main="Number of Clusters Chosen by 30 Criteria") # NBClust suggest 2
 
-# NBClust suggest 3
 
 
 # silhouette
-fviz_nbclust(normalized_df, kmeans, method = 'silhouette')
-
-# silhouette suggest 3
+fviz_nbclust(normalized_df, kmeans, method = 'silhouette') # silhouette suggest 2
 
 # Elbow Method
-fviz_nbclust(normalized_df, kmeans, method = 'wss')
+fviz_nbclust(normalized_df, kmeans, method = 'wss') # Elbow suggest 
 
 # gap
-fviz_nbclust(normalized_df, kmeans, method = 'gap_stat')
+fviz_nbclust(normalized_df, kmeans, method = 'gap_stat') # gap Suggest 
