@@ -19,6 +19,6 @@ for (i in 1:15){
 plot(1:15, wss, type="b", xlab="Number of Clusters", 
      ylab="Within groups sum of squares")
 
-#  type three
+# type three
 # this also use withines
 fviz_nbclust(normalized_df, kmeans, method = 'wss')
