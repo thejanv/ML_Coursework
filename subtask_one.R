@@ -4,6 +4,7 @@ rm(list = ls())
 # install and load readxl package
 # install.packages('readxl')
 library(readxl)
+library(factoextra)
 
 #Setting the working directory
 getwd()
@@ -34,3 +35,39 @@ for (col in names(df)) {
 }
 clean_df <- na.omit(clean_df)
 boxplot(clean_df)
+
+# Normalize data
+min_max_norm <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+
+normalized_df <- as.data.frame(lapply(clean_df, min_max_norm))
+head(normalized_df)
+
+# determine the number of cluster
+# install.packages("NbClust")
+library(NbClust)
+
+set.seed(10)
+
+# using NbClust determine the optimal number of clusters
+clusterNo = NbClust(normalized_df, distance="euclidean", min.nc=2,
+                              max.nc=10, method="kmeans", index="all")
+
+table(clusterNo$Best.n[1,])
+barplot(table(clusterNo$Best.n[1,]), xlab="Numer of Clusters",ylab="Number of Criteria",
+        main="Number of Clusters Chosen by 30 Criteria")
+
+# NBClust suggest 3
+
+
+# silhouette
+fviz_nbclust(normalized_df, kmeans, method = 'silhouette')
+
+# silhouette suggest 3
+
+# Elbow Method
+fviz_nbclust(normalized_df, kmeans, method = 'wss')
+
+# gap
+fviz_nbclust(normalized_df, kmeans, method = 'gap_stat')
