@@ -4,7 +4,7 @@ library(readxl)
 
 # read data from excel file
 getwd()
-df <- read_excel("vehicles.xlsx")
+df <- read_excel("./Data/vehicles.xlsx")
 df$Class <- NULL
 
 boxplot(df)
