@@ -11,9 +11,9 @@ result_df <- data.frame(column = character(),
                         stringsAsFactors = FALSE)
 
 
-df <- clean_df
+
 # check normality of data 
-for (col in names(df)) {
+for (col in names(clean_df)) {
   res <- shapiro.test(df[[col]])
   if(res$p.value > 0.05){
     result_df <- rbind(result_df, data.frame(column = col, p_value = res$p.value, status = "Ok"))
@@ -21,3 +21,4 @@ for (col in names(df)) {
     result_df <- rbind(result_df, data.frame(column = col, p_value = res$p.value, status = "Not Ok"))
   }
 }
+result_df

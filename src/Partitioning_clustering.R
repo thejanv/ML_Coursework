@@ -13,10 +13,12 @@ df <- read_excel("Data/vehicles.xlsx")
 head(df)
 df.lable <- df$Class
 df <- df[,2:19]
+
 plot.new()
 par(mfrow = c(1, 2))
 boxplot(df)
 title("Box Plot before outlier remove")
+
 func_outliers <- function(x){
   outlier_values <- boxplot(x, plot=FALSE)$out
   data_clean <- replace(x, x %in% outlier_values, NA)
@@ -45,6 +47,7 @@ boxplot(normalized_df)
 title("Box Plot after Normalization")
 
 library(NbClust)
+
 # using NbClust determine the optimal number of clusters
 set.seed(123)
 clusterNo = NbClust(normalized_df, distance="euclidean", min.nc=2, max.nc = 10, method="kmeans")
@@ -101,10 +104,15 @@ library(rlang)
 pca_result <- prcomp(normalized_df, scale = FALSE)
 cumulative_variance <- cumsum(pca_result$sdev^2 / sum(pca_result$sdev^2))
 cumulative_variance
-plot(cumulative_variance, xlab = "Number of PCs", ylab = "Cumulative Variance Explained", type = "b")
+
+plot(cumulative_variance, xlab = "Number of PCs", ylab = "Cumulative Variance Explained", 
+     type = "b")
 abline(h=0.92, col="red")
 title("Cumalative value > 92%")
+
 pca_result
+
+# Eigenvector
 eigenvector <- pca_result$rotation
 eigenvector
 pca_result$rotation <- -pca_result$rotation

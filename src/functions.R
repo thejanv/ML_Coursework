@@ -23,7 +23,7 @@ predict_expected_plot <- function(model_val) {
          fill=c("red","green")
   )
 }
-
+library(Metrics)
 # ecaluation matrx and accuracy result generator
 test <- function(consumsion_nnar) {
   table_result <- c()
