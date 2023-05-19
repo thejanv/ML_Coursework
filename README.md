@@ -1,6 +1,6 @@
 # ML_Coursework
 <p align=center>
-  <img src="https://github.com/thejanv/ML_Coursework/blob/6d02e0bd03155347559a835de34f00196fd1d50a/src/img/Rplot.png" width="30%" height="30%">
+  <img src="src/img/Rplot.png" width="30%" height="30%">
  </p>
  
 ## 1st Objective (partitioning clustering)
